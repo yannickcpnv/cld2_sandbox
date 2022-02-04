@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\PictureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', static fn() => view('welcome'));
+
+Route::resource('galleries', GalleryController::class)->except(['edit', 'update', 'destroy']);
+Route::resource('galleries.pictures', PictureController::class)->except(['edit', 'update']);
