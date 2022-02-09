@@ -3,10 +3,11 @@
 namespace Database\Seeders;
 
 use Faker\Factory;
+use App\Models\Picture;
 use App\Models\Gallery;
 use Illuminate\Database\Seeder;
 
-class GallerySeeder extends Seeder
+class PictureSeeder extends Seeder
 {
 
     /**
@@ -18,7 +19,11 @@ class GallerySeeder extends Seeder
     {
         $faker = Factory::create();
         for ($i = 0; $i < 13; $i++) {
-            Gallery::create(['name' => $faker->word]);
+            Picture::create([
+                'title'      => $faker->sentence,
+                'path'       => $faker->uuid,
+                'gallery_id' => Gallery::all()->random()->id,
+            ]);
         }
     }
 }

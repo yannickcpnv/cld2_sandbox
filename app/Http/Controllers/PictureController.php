@@ -3,18 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Picture;
+use App\Models\Gallery;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 
 class PictureController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Gallery $gallery
+     *
+     * @return View
      */
-    public function index()
+    public function index(Gallery $gallery): View
     {
-        //
+        return view('pictures.index', ['pictures' => $gallery->pictures]);
     }
 
     /**
@@ -22,7 +27,7 @@ class PictureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Gallery $gallery)
     {
         //
     }
@@ -33,7 +38,7 @@ class PictureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Gallery $gallery)
     {
         //
     }
@@ -44,30 +49,7 @@ class PictureController extends Controller
      * @param  \App\Models\Picture  $picture
      * @return \Illuminate\Http\Response
      */
-    public function show(Picture $picture)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Picture  $picture
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Picture $picture)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Picture  $picture
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Picture $picture)
+    public function show(Picture $picture, Gallery $gallery)
     {
         //
     }
@@ -78,7 +60,7 @@ class PictureController extends Controller
      * @param  \App\Models\Picture  $picture
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Picture $picture)
+    public function destroy(Picture $picture, Gallery $gallery)
     {
         //
     }

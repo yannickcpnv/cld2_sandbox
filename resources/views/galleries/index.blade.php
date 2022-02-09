@@ -1,5 +1,6 @@
 <x-layout.app>
     <x-slot name="titlePage">Galleries list</x-slot>
+    <a href="{{ route('galleries.create') }}">Créer une gallerie</a>
     <table>
         <thead>
             <th>Name</th>
@@ -7,7 +8,7 @@
         <tbody>
             @foreach ($galleries as $gallery)
                 <tr>
-                    <td>{{ $gallery->name }} </td>
+                    <td><a href="{{ route('galleries.show', $gallery->id) }}">{{ $gallery->name }}</a></td>
                 </tr>
             @endforeach
         </tbody>

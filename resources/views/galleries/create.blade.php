@@ -4,5 +4,7 @@
         @csrf
         <label for="Name">Name: </label>
         <input type="text" name="name" placeholder="Name" id="Name" autocomplete="off">
+
+        <input type="submit" value="Create">
     </form>
 </x-layout.app>
