@@ -15,7 +15,7 @@ use App\Http\Controllers\PictureController;
 |
 */
 
-Route::get('/', static fn() => view('welcome'));
-
 Route::resource('galleries', GalleryController::class)->except(['edit', 'update', 'destroy']);
 Route::resource('galleries.pictures', PictureController::class)->except(['edit', 'update']);
+
+Route::redirect('/', route('galleries.index'));

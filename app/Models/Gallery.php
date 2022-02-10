@@ -21,6 +21,6 @@ class Gallery extends Model
      */
     public function pictures(): HasMany
     {
-        return $this->hasMany('App\Picture');
+        return $this->hasMany(Picture::class);
     }
 }

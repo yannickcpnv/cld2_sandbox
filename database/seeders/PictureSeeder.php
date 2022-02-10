@@ -18,10 +18,10 @@ class PictureSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create();
-        for ($i = 0; $i < 13; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             Picture::create([
                 'title'      => $faker->sentence,
-                'path'       => $faker->uuid,
+                'path'       => $faker->unique()->word,
                 'gallery_id' => Gallery::all()->random()->id,
             ]);
         }
