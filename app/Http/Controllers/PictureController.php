@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Str;
 use App\Models\Picture;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
@@ -51,7 +50,11 @@ class PictureController extends Controller
     {
         $picture = Picture::make($request->all());
         $picture->gallery()->associate($gallery);
-        $picture->path = Str::words($picture->title, 1, '');
+
+        $picture->path = $request->file('picture_file')?->store(
+            'galleries/' . $gallery->id, 'public'
+        );
+
         $picture->save();
 
         return redirect()->route('galleries.pictures.index', $gallery);

@@ -16,6 +16,13 @@
                             {{ $picture->title }}
                         </a>
                     </td>
+                    <td>
+                        <img alt="{{ $picture->title }}"
+                             height="50"
+                             src="{{ Storage::url($picture->path) }}"
+                             width="50"
+                        >
+                    </td>
                 </tr>
             @endforeach
         </tbody>
