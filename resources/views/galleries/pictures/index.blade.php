@@ -1,8 +1,9 @@
 <x-layout.app>
     <x-slot name="titlePage">
-        Pictures list of <a href="{{ route('galleries.show', $gallery) }}">{{ $gallery->name }}</a>
+        Gallery N°{{ $gallery->id }}
     </x-slot>
-    <a href="{{ route('galleries.pictures.create', $gallery) }}">Add picture</a>
+    <a href="{{ route('galleries.index') }}">All galleries</a>
+    <p>Name : {{ $gallery->name }} </p>
     <table>
         <caption>Galleries</caption>
         <thead>
@@ -27,4 +28,5 @@
             @endforeach
         </tbody>
     </table>
+    <a href="{{ route('galleries.pictures.create', $gallery) }}">Add picture</a>
 </x-layout.app>

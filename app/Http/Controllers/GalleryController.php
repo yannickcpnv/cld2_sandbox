@@ -49,10 +49,10 @@ class GalleryController extends Controller
      *
      * @param \App\Models\Gallery $gallery
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show(Gallery $gallery): View
+    public function show(Gallery $gallery): RedirectResponse
     {
-        return view('galleries.show', compact('gallery'));
+        return redirect()->route('galleries.pictures.index', $gallery);
     }
 }
