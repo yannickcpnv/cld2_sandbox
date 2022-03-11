@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Str;
+use Arr;
 use App\Models\Picture;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
@@ -10,6 +11,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * This class is the controller of {@link \App\Models\Picture}.
+ */
 class PictureController extends Controller
 {
 
@@ -73,9 +77,10 @@ class PictureController extends Controller
      */
     public function show(Gallery $gallery, Picture $picture, Request $request)
     {
-        if (Str::contains($request->getAcceptableContentTypes()[0], 'image/')) {
-            return Storage::download($picture->path);
+        if (Str::startsWith(Arr::first($request->getAcceptableContentTypes()), 'image/')) {
+            return Storage::disk('local')->download($picture->path);
         }
+
         return view('galleries.pictures.show', compact('picture', 'gallery'));
     }
 
