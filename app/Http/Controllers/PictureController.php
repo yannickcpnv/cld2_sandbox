@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Str;
 use App\Models\Picture;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 
 class PictureController extends Controller
 {
@@ -52,7 +54,7 @@ class PictureController extends Controller
         $picture->gallery()->associate($gallery);
 
         $picture->path = $request->file('picture_file')?->store(
-            'galleries/' . $gallery->id, 'public'
+            'galleries/' . $gallery->id, 'local'
         );
 
         $picture->save();
@@ -63,13 +65,17 @@ class PictureController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Gallery $gallery
-     * @param \App\Models\Picture $picture
+     * @param \App\Models\Gallery      $gallery
+     * @param \App\Models\Picture      $picture
+     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\View|\Symfony\Component\HttpFoundation\StreamedResponse
      */
-    public function show(Gallery $gallery, Picture $picture): View
+    public function show(Gallery $gallery, Picture $picture, Request $request)
     {
+        if (Str::contains($request->getAcceptableContentTypes()[0], 'image/')) {
+            return Storage::download($picture->path);
+        }
         return view('galleries.pictures.show', compact('picture', 'gallery'));
     }
 

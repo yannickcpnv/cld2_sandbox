@@ -20,7 +20,7 @@
                     <td>
                         <img alt="{{ $picture->title }}"
                              height="50"
-                             src="{{ Storage::url($picture->path) }}"
+                             src="{{ route('galleries.pictures.show', [$gallery->id, $picture->id]) }}"
                              width="50"
                         >
                     </td>

@@ -4,7 +4,7 @@
     <p>Title : {{ $picture->title }} </p>
     <img alt="{{ $picture->title }}"
          style="max-width: 500px; height: auto"
-         src="{{ Storage::url($picture->path) }}"
+         src="{{ route('galleries.pictures.show', [$gallery, $picture]) }}"
     >
     <form method="post" action="{{ route('galleries.pictures.destroy', [$gallery, $picture])}}">
         @method('delete')
