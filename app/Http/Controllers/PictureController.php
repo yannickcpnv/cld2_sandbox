@@ -58,7 +58,7 @@ class PictureController extends Controller
         $picture->gallery()->associate($gallery);
 
         $picture->path = $request->file('picture_file')?->store(
-            'galleries/' . $gallery->id, 'local'
+            'my-galleries/' . $gallery->id, 's3'
         );
 
         $picture->save();
@@ -78,7 +78,7 @@ class PictureController extends Controller
     public function show(Gallery $gallery, Picture $picture, Request $request)
     {
         if (Str::startsWith(Arr::first($request->getAcceptableContentTypes()), 'image/')) {
-            return Storage::disk('local')->download($picture->path);
+            return Storage::disk('s3')->download($picture->path);
         }
 
         return view('galleries.pictures.show', compact('picture', 'gallery'));
