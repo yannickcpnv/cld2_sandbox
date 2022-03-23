@@ -58,7 +58,8 @@ class PictureController extends Controller
         $picture->gallery()->associate($gallery);
 
         $picture->path = $request->file('picture_file')?->store(
-            'my-galleries/' . $gallery->id, 's3'
+            'my-galleries/' . $gallery->id,
+            's3'
         );
 
         $picture->save();
@@ -73,12 +74,17 @@ class PictureController extends Controller
      * @param \App\Models\Picture      $picture
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Contracts\View\View|\Symfony\Component\HttpFoundation\StreamedResponse
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function show(Gallery $gallery, Picture $picture, Request $request)
     {
         if (Str::startsWith(Arr::first($request->getAcceptableContentTypes()), 'image/')) {
-            return Storage::disk('s3')->download($picture->path);
+            $temporaryUrl = Storage::disk('s3')->temporaryUrl(
+                $picture->path,
+                now()->addMinutes(5)
+            );
+
+            return redirect($temporaryUrl);
         }
 
         return view('galleries.pictures.show', compact('picture', 'gallery'));
